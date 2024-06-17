@@ -166,7 +166,7 @@ class MyClient(discord.Client):
 
             new_data.append(new_entry)
 
-    async def run_blocking(self, blocking_func, *args, **kwargs) -> typing.Any:
+    async def run_blocking(self, blocking_func, *args, **kwargs):
         """Runs a blocking function in a non-blocking way"""
         func = functools.partial(blocking_func, *args, **kwargs) # `run_in_executor` doesn't support kwargs, `functools.partial` does
         return await client.loop.run_in_executor(None, func)
