@@ -3,6 +3,8 @@ import os
 import bs4
 import json
 import asyncio
+import typing
+import functools
 import discord
 import requests
 import sqlite3
@@ -50,7 +52,7 @@ class MyClient(discord.Client):
     def __init__(self, *args, **kwargs):
         urls = os.getenv('SEARCH_URLS', '')
         if not urls:
-          raise Exception("Sorry, no numbers below zero") 
+          raise Exception("No SEARCH_URLS defined") 
         self.search_urls = urls.split()
         super().__init__(*args, **kwargs)
 
@@ -166,7 +168,7 @@ class MyClient(discord.Client):
 
             new_data.append(new_entry)
 
-    async def run_blocking(self, blocking_func, *args, **kwargs):
+    async def run_blocking(self, blocking_func: typing.Callable, *args, **kwargs) -> typing.Any:
         """Runs a blocking function in a non-blocking way"""
         func = functools.partial(blocking_func, *args, **kwargs) # `run_in_executor` doesn't support kwargs, `functools.partial` does
         return await client.loop.run_in_executor(None, func)
