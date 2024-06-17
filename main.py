@@ -126,7 +126,7 @@ class MyClient(discord.Client):
             if not desc_p:
                 print("no description for ebay article with url " + new_entry["url"])
             else:
-                new_entry["desc"] = desc_p.string
+                new_entry["desc"] = desc_p.get_text().replace("#", "")
 
             # getting location
             loc_div = e.find("div", attrs={"class": "aditem-main--top--left"})
