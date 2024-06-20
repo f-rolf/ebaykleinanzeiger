@@ -178,7 +178,7 @@ class MyClient(discord.Client):
         print("Starting to crawl")
         await self.wait_until_ready()
         for search_url in self.search_urls:
-            await self.run_blocking(self.crawl_url, self, search_url)
+            await self.run_blocking(self.crawl_url, search_url)
 
 
 # clean those weird strings on some pages
