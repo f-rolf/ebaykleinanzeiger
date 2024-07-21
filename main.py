@@ -168,17 +168,12 @@ class MyClient(discord.Client):
 
             new_data.append(new_entry)
 
-    async def run_blocking(self, blocking_func: typing.Callable, *args, **kwargs) -> typing.Any:
-        """Runs a blocking function in a non-blocking way"""
-        func = functools.partial(blocking_func, *args, **kwargs) # `run_in_executor` doesn't support kwargs, `functools.partial` does
-        return await client.loop.run_in_executor(None, func)
-
     @tasks.loop(seconds=CHECK_INTERVAL)
     async def bg_task(self):
         print("Starting to crawl")
         await self.wait_until_ready()
         for search_url in self.search_urls:
-            await self.run_blocking(self.crawl_url, search_url)
+            await self.crawl_url(search_url)
 
 
 # clean those weird strings on some pages
