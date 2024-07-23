@@ -152,7 +152,7 @@ class MyClient(discord.Client):
                     title=new_entry["title"],
                     url=new_entry["url"],
                     description=new_entry["desc"],
-                    color=discord.Color.green()
+                    color=discord.Color.blue()
                 )
                 if "img" in new_entry:
                     embed.set_image(url=new_entry["img"])
